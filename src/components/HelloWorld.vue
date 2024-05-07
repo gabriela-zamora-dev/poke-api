@@ -45,8 +45,9 @@ const cargaInicial = async () => {
     <div class="col-sm-2 shadow-sm flex-grow-1" v-for="(pokemon, index) in pokemons" :key="`item-${index}`">
       <div class="p-5">
         
-        <p><b>{{ pokemon.nombre}}</b></p>
+        <p><b>{{pokemon.nombre}}</b></p>
         <img :src="pokemon.imagen" alt="Imagen de Pokémon" class="img-fluid w-100 h-100" />
+          <router-link :to="`/details/${pokemon.index}`">Detalles</router-link>
       </div>
     </div>
   </div>
