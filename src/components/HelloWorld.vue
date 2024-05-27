@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { mostrarPokemonsConImagenes } from "@/services/pokebola.service";
 
 //array reactivos
@@ -45,9 +46,10 @@ const cargaInicial = async () => {
     <div class="col-sm-2 shadow-sm flex-grow-1" v-for="(pokemon, index) in pokemons" :key="`item-${index}`">
       <div class="p-5">
         
-        <p><b>{{pokemon.nombre}}</b></p>
+        <p class="fw-bold">{{pokemon.nombre}}</p>
         <img :src="pokemon.imagen" alt="Imagen de Pokémon" class="img-fluid w-100 h-100" />
-          <router-link :to="`/details/${pokemon.index}`">Detalles</router-link>
+        <h5>N°{{pokemon.id}}</h5>
+        <router-link :to="`/details/${pokemon.id}`">Detalles</router-link>
       </div>
     </div>
   </div>
@@ -73,6 +75,11 @@ const cargaInicial = async () => {
 <br>-->
 
 </template>
+<script>
+export default {
+  
+}
+</script>
 
 <style scoped>
 .read-the-docs {

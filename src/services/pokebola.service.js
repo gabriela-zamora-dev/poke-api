@@ -1,4 +1,5 @@
 import { apibase } from '../config/axios.config'
+
 /*
 //función asincrona el cual nos permite realizar la petición
 export const obtenerPokemones = async (path) => {
@@ -80,27 +81,39 @@ export async function getAllPokemonDetails() {
   // Función para obtener la lista de Pokémon con nombres y URLs
 async function obtenerListaPokemons() {
 	try {
-	  const response = await apibase.get('/pokemon?limit=20&offset=0');
-	  return response.data.results; // Devuelve la lista de Pokémon con nombres y URLs
+		const response = await apibase.get('/pokemon?limit=150&offset=0');
+	  	return response.data.results; // Devuelve la lista de Pokémon con nombres y URLs
 	} catch (error) {
-	  console.error('Error al obtener la lista de Pokémon:', error);
-	}
-}
-  
-// Función para obtener los detalles de un Pokémon, incluyendo la imagen
-async function obtenerDetallesPokemon(url) {
-	try {
-	  const response = await apibase.get(url);
-	  //console.log(url);
-	  return {
-		nombre: response.data.name,
-		imagen: response.data.sprites.front_default // URL de la imagen del Pokémon
-	  };
-	} catch (error) {
-	  console.error('Error al obtener los detalles del Pokémon:', error);
+		console.error('Error al obtener la lista de Pokémon:', error);
 	}
 }
 
+async function obtenerDescripcion() {
+try {
+		const datos = await apibase.get('/pokemon/:id');
+	} catch (error) {
+		console.error('Error al obtener el pokemon deseado')
+	}
+}
+
+// Función para obtener los detalles de un Pokémon, incluyendo la imagen
+async function obtenerDetallesPokemon(url) {
+	try {
+		const response = await apibase.get(url);
+	  	console.log(url);
+		return {
+			id: response.data.id,
+			nombre: response.data.name,
+			imagen: response.data.sprites.front_default, 
+			tipo: response.data.types[0].type.name,
+			peso: response.data.weight,
+			altura: response.data.height // URL de la imagen del Pokémon
+
+		};
+	} catch (error) {
+		console.error('Error al obtener los detalles del Pokémon:', error);
+	}
+}
 // Función para obtener la lista de Pokémon con imágenes
 export async function mostrarPokemonsConImagenes() {
 	const listaPokemons = await obtenerListaPokemons();
@@ -110,8 +123,5 @@ export async function mostrarPokemonsConImagenes() {
 	const detallesPokemons = await Promise.all(
 		listaPokemons.map(pokemon => obtenerDetallesPokemon(pokemon.url))
 	);
-
-	//console.log(detallesPokemons);
-	return detallesPokemons;
+	return detallesPokemons;	
 }
-  
