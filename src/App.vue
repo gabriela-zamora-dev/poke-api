@@ -1,8 +1,10 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
+import NavigationMenu from './components/NavigationMenu.vue'
 </script>
 
 <template>
+  <NavigationMenu/>
   <HelloWorld/>
 </template>
 
